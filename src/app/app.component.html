@@ -1,21 +1,86 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<!------ Passing one string parameter to pipe start ----->
+<h1>Passing one string parameter to pipe</h1>
+<table border="1">
+  <tr>
+    <th>Name</th>
+    <th>Sex</th>
+  </tr>
+  <tr *ngFor="let emp of employees;">
+    <td>{{ emp.Name | passedOneStringParameter: emp.Sex }}</td>
+    <!-- passed "emp.Sex" (string) parameter to pipe "passedOneStringParameter" -->
+    <td>{{ emp.Sex | lowercase }}</td>
+  </tr>
+</table>
+<!------ Passing one string parameter to pipe End ----->
 
-<router-outlet></router-outlet>
+
+<!------ Passing multiple parameters(1 string & 1 number) to pipe start ----->
+<h1>Passing multiple parameters(1 string & 1 number) to pipe</h1>
+<table border="1">
+  <tr>
+    <th>Name</th>
+    <th>Sex</th>
+    <th>Year</th>
+  </tr>
+  <tr *ngFor="let emp of employees;">
+    <td>{{ emp.Name }}</td>
+    <td>{{ emp.Sex | lowercase }}</td>
+    <td>{{ emp.Year | passedAnymultiparameters: emp.Sex : emp.Year }}</td>
+    <!-- passed 2 parameters to pipe "passedAnymultiparameters" -->
+  </tr>
+</table>
+<!------ Passing multiple parameters(1 string & 1 number) to pipe end ----->
+
+
+<!------ Include HTML through pipe start ----->
+<h1>Include HTML through pipe</h1>
+<table border="1">
+  <tr>
+    <th>Name</th>
+    <th>Events</th>
+    <th>Expenses</th>
+  </tr>
+  <tr>
+    <td>Vithal Wadje</td>
+    <td><span [innerHTML]="100 | includehtml: 100"></span></td>
+    <td>{{1200 | currency : '₹'}}</td>
+  </tr>
+  <tr>
+    <td>Amol Patil</td>
+    <td><span [innerHTML]="50 | includehtml: 50"></span></td>
+    <td>{{900 | currency : '₹'}}</td>
+  </tr>
+</table>
+<!------ Include HTML through pipe end ----->
+
+
+<!------ Get the Position of an Element start ----->
+<h1>Get the Position of an Element</h1>
+Click one of the buttons below to set the position of the menu
+<div class="grid">
+  <div class="button" (click)="setMultipliers(-1, -1)">Top Left</div>
+  <div class="button" (click)="setMultipliers(-1, 0)">Top</div>
+  <div class="button" (click)="setMultipliers(-1, 1)">Top Right</div>
+  <div class="button" (click)="setMultipliers(0, -1)">Left</div>
+  <div class="button" (click)="setMultipliers(0, 0)">Center</div>
+  <div class="button" (click)="setMultipliers(0, 1)">Right</div>
+  <div class="button" (click)="setMultipliers(1, -1)">Bottom Left</div>
+  <div class="button" (click)="setMultipliers(1, 0)">Bottom</div>
+  <div class="button" (click)="setMultipliers(1, 1)">Bottom Right</div>
+</div>
+<div class="container">
+  <div class="button" #positionElement>Position Element</div>
+  <!-- DISCLAIMER: calling elementPosition multiple times is inefficient. This is just for demonstration purposes -->
+  <div class="menu" [style.top.px]="(positionElement | getPositionofElement:leftMultipler:topMultipler).y"
+    [style.left.px]="(positionElement | getPositionofElement:leftMultipler:topMultipler).x">
+    Menu
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+    </ul>
+  </div>
+</div>
+<!------ Get the Position of an Element end ----->
